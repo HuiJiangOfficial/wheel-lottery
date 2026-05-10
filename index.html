@@ -821,7 +821,7 @@
             <ul>
                 <li>每位邻居仅有1次抽奖机会</li>
                 <li>点击"立即抽奖"按钮开始抽奖</li>
-                <li>中奖后到店凭记录领取奖品</li>
+                <li>中奖后到奖品可送货到家</li>
                 <li>Suker蔬菜鲜果拥有活动最终解释权</li>
             </ul>
         </div>
@@ -919,12 +919,12 @@
                 desc: '差一点点就中奖啦! 继续支持我们哦!'
             },
             { 
-                name: '精品大榴莲', 
-                icon: 'images/榴莲.svg', 
-                iconType: 'image',
+                name: '神秘大奖', 
+                icon: '🎁', 
+                iconType: 'emoji',
                 type: 'win', 
                 color: '#FFD700',
-                desc: '恭喜获得泰国进口金枕头榴莲一个！新鲜美味，价值198元！到店即可领取!'
+                desc: '恭喜获得泰国进口金枕头榴莲一个！新鲜美味，价值198元！优先配送到家!'
             },
             { 
                 name: '谢谢惠顾', 
@@ -953,16 +953,31 @@
         ];
 
         // 模拟中奖用户数据（全部显示抽中榴莲）
-        const mockWinners = [
-            { user: '王***邻居', prize: '精品大榴莲', time: '3' },
-            { user: '李***阿姨', prize: '精品大榴莲', time: '5' },
-            { user: '张***大叔', prize: '精品大榴莲', time: '8' },
-            { user: '刘***小姐', prize: '精品大榴莲', time: '12' },
-            { user: '陈***先生', prize: '精品大榴莲', time: '15' },
-            { user: '陈***八', prize: '精品大榴莲', time: '18' },
-            { user: '杨***九', prize: '精品大榴莲', time: '20' },
-            { user: '黄***十', prize: '精品大榴莲', time: '25' }
+        // 水果奖品列表（用于随机显示）
+        const fruitPrizes = [
+            '精品大榴莲', '新鲜草莓', '进口车厘子', '香甜芒果', 
+            '多汁西瓜', '红富士苹果', '脐橙', '猕猴桃', 
+            '蓝莓', '葡萄', '水蜜桃', '火龙果'
         ];
+
+        // 生成随机中奖记录
+        function generateMockWinners() {
+            const winners = [];
+            const names = ['王***邻居', '李***阿姨', '张***大叔', '刘***小姐', 
+                          '陈***先生', '陈***八', '杨***九', '黄***十'];
+            const times = ['3', '5', '8', '12', '15', '18', '20', '25'];
+            
+            for (let i = 0; i < names.length; i++) {
+                winners.push({
+                    user: names[i],
+                    prize: fruitPrizes[Math.floor(Math.random() * fruitPrizes.length)],
+                    time: times[i]
+                });
+            }
+            return winners;
+        }
+
+        const mockWinners = generateMockWinners();
 
         let hasDrawn = false;
         let isSpinning = false;
@@ -1085,10 +1100,14 @@
                     iconHtml = `<div class="prize-item-icon">${prize.icon}</div>`;
                 }
 
+                // 如果是神秘大奖，显示礼物图标和特殊描述
+                const displayName = prize.name === '神秘大奖' ? '神秘大奖' : prize.name;
+                const displayDesc = prize.name === '神秘大奖' ? '惊喜水果' : `${prize.desc.substring(0, 20)}...`;
+
                 item.innerHTML = `
-                    ${iconHtml}
-                    <div class="prize-item-name">${prize.name}</div>
-                    <div class="prize-item-desc">${prize.desc.substring(0, 20)}...</div>
+                    ${prize.name === '神秘大奖' ? '<div class="prize-item-icon">🎁</div>' : iconHtml}
+                    <div class="prize-item-name">${displayName}</div>
+                    <div class="prize-item-desc">${displayDesc}</div>
                     <div class="prize-item-count">共${count}个</div>
                 `;
                 prizeList.appendChild(item);
@@ -1155,14 +1174,20 @@
             const modalPrizeName = document.getElementById('modalPrizeName');
             const modalPrizeDesc = document.getElementById('modalPrizeDesc');
 
-            // 根据图标类型设置弹窗中的奖品图标
-            if (prize.iconType === 'image') {
-                modalPrizeIcon.innerHTML = `<img src="${prize.icon}" alt="${prize.name}" style="width: 60px; height: 60px; object-fit: contain;">`;
+            // 如果是神秘大奖，弹窗显示榴莲
+            if (prize.name === '神秘大奖') {
+                modalPrizeIcon.innerHTML = `<img src="images/榴莲.svg" alt="精品大榴莲" style="width: 60px; height: 60px; object-fit: contain;">`;
+                modalPrizeName.textContent = '精品大榴莲';
             } else {
-                modalPrizeIcon.textContent = prize.icon;
+                // 根据图标类型设置弹窗中的奖品图标
+                if (prize.iconType === 'image') {
+                    modalPrizeIcon.innerHTML = `<img src="${prize.icon}" alt="${prize.name}" style="width: 60px; height: 60px; object-fit: contain;">`;
+                } else {
+                    modalPrizeIcon.textContent = prize.icon;
+                }
+                modalPrizeName.textContent = prize.name;
             }
 
-            modalPrizeName.textContent = prize.name;
             modalPrizeDesc.textContent = prize.desc;
 
             if (prize.type === 'win') {
@@ -1204,9 +1229,16 @@
             const ticker = document.getElementById('winnerTicker');
             const tickerWrapper = document.getElementById('tickerWrapper');
 
-            // 添加当前用户的中奖记录
+            // 添加当前用户的中奖记录，如果是神秘大奖则随机显示水果
             const currentUser = '我';
-            const newWinner = { user: currentUser, prize: currentPrize.name, time: '刚刚' };
+            let displayPrizeName;
+            if (currentPrize.name === '神秘大奖') {
+                // 随机选择一个水果显示
+                displayPrizeName = fruitPrizes[Math.floor(Math.random() * fruitPrizes.length)];
+            } else {
+                displayPrizeName = currentPrize.name;
+            }
+            const newWinner = { user: currentUser, prize: displayPrizeName, time: '刚刚' };
             mockWinners.unshift(newWinner);
 
             // 构建滚动内容 - 复制一份实现无缝循环
@@ -1247,10 +1279,26 @@
             }, 1000);
         }
 
+        // 初始化中奖名单滚动显示
+        function initWinnerTicker() {
+            const ticker = document.getElementById('winnerTicker');
+            const tickerWrapper = document.getElementById('tickerWrapper');
+
+            // 构建滚动内容 - 复制一份实现无缝循环
+            const tickerItems = mockWinners.map(w =>
+                `<div class="ticker-item">${w.user} 在${w.time}分钟前抽到了 ${w.prize}</div>`
+            );
+            
+            // 将内容复制一份，实现无缝滚动
+            tickerWrapper.innerHTML = tickerItems.join('') + tickerItems.join('');
+            ticker.style.display = 'block';
+        }
+
         // 事件绑定
         document.addEventListener('DOMContentLoaded', () => {
             initWheel();
             initPrizeList();
+            initWinnerTicker();
             startCountdown();
 
             document.getElementById('drawBtn').addEventListener('click', draw);
