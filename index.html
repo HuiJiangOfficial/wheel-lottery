@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>幸运大抽奖 - 精品大榴莲等你来拿!</title>
+    <title>Suker蔬菜鲜果 - 幸运大抽奖!</title>
     <style>
         * {
             margin: 0;
@@ -14,7 +14,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', Arial, sans-serif;
-            /* 拼多多风格背景：放射状渐变 + 装饰 */
+            /* 红金配色背景：放射状渐变 + 装饰 */
             background: 
                 radial-gradient(circle at 30% 20%, rgba(255, 215, 0, 0.3) 0%, transparent 50%),
                 radial-gradient(circle at 70% 80%, rgba(255, 107, 0, 0.3) 0%, transparent 50%),
@@ -96,12 +96,12 @@
 
         .header h1 {
             color: #fff;
-            font-size: 30px;
+            font-size: 28px;
             text-shadow: 
                 0 0 10px rgba(255, 215, 0, 0.8),
                 0 0 20px rgba(255, 215, 0, 0.6),
                 2px 2px 4px rgba(0, 0, 0, 0.3);
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             font-weight: 900;
             margin: 10px 0;
         }
@@ -114,7 +114,7 @@
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
 
-        /* 限时优惠标签 */
+        /* 限时优惠标签 - 红金风格 */
         .limited-tag {
             background: linear-gradient(90deg, #ff0000, #ff4444, #ff0000);
             background-size: 200% 100%;
@@ -136,7 +136,7 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* 规则提示 - 拼多多卡片风格 */
+        /* 规则提示 - 红金卡片风格 */
         .rules-box {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 249, 230, 0.98) 100%);
             border-radius: 12px;
@@ -214,7 +214,7 @@
             aspect-ratio: 1 / 1;
         }
 
-        /* 转盘外圈光效 */
+        /* 转盘外圈光效 - 红金风格 */
         .wheel-glow {
             position: absolute;
             top: -20px;
@@ -225,7 +225,6 @@
             background: radial-gradient(circle, rgba(255, 215, 0, 0.4) 0%, transparent 70%);
             animation: glowPulse 2s ease-in-out infinite;
             pointer-events: none;
-            /* 确保光效也是完美的圆形 */
             aspect-ratio: 1 / 1;
         }
 
@@ -266,7 +265,7 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
         }
 
-        /* 转盘容器 */
+        /* 转盘容器 - 红金风格 */
         .wheel-container {
             width: 100%;
             height: 100%;
@@ -337,7 +336,7 @@
                 inset 0 2px 10px rgba(255, 255, 255, 0.5);
         }
 
-        /* 抽奖按钮 - 拼多多3D风格 */
+        /* 抽奖按钮 - 红金3D风格 */
         .draw-btn-wrapper {
             text-align: center;
             margin: 25px 0;
@@ -806,24 +805,24 @@
         <!-- 头部 -->
         <div class="header">
             <div class="header-decoration"></div>
-            <div class="header-badge">🔥 限时特惠 🔥</div>
+            <div class="header-badge">🍎 Suker蔬菜鲜果 🥬</div>
             <h1>🎊 幸运大抽奖 🎊</h1>
-            <p class="subtitle">精品大榴莲等你带回家!</p>
+            <p class="subtitle">新鲜水果蔬菜，品质生活从这里开始!</p>
         </div>
 
         <!-- 限时标签 -->
         <div class="limited-tag">
-            ⏰ 活动仅剩 <span id="countdown">23:59:59</span> | 已有 12,580 人参与
+            ⏰ 活动仅剩 <span id="countdown">23:59:59</span> | 已有 3,680 位邻居参与
         </div>
 
         <!-- 规则提示 -->
         <div class="rules-box">
             <h3>活动规则</h3>
             <ul>
-                <li>每位用户仅有1次抽奖机会</li>
+                <li>每位邻居仅有1次抽奖机会</li>
                 <li>点击"立即抽奖"按钮开始抽奖</li>
-                <li>奖品将在抽奖结束后自动发放</li>
-                <li>活动最终解释权归商家所有</li>
+                <li>中奖后到店凭记录领取奖品</li>
+                <li>Suker蔬菜鲜果拥有活动最终解释权</li>
             </ul>
         </div>
 
@@ -854,7 +853,7 @@
         <!-- 抽奖按钮 -->
         <div class="draw-btn-wrapper">
             <button class="draw-btn" id="drawBtn">
-                <span class="btn-text">🎯 立即抽奖</span>
+                <span class="btn-text">🍀 开始抽奖</span>
             </button>
         </div>
 
@@ -865,7 +864,7 @@
 
         <!-- 奖品列表 -->
         <div class="prizes-section">
-            <h3>🎁 奖品列表</h3>
+            <h3>🎁 今日奖品</h3>
             <div class="prize-list" id="prizeList">
                 <!-- 奖品项由JS动态生成 -->
             </div>
@@ -905,53 +904,61 @@
             },
             { 
                 name: '谢谢惠顾', 
-                icon: '😅', 
+                icon: '😊', 
                 iconType: 'emoji',
                 type: 'lose', 
-                color: '#c0392b',
-                desc: '差一点点就中奖啦! 继续加油，好运即将降临!'
+                color: '#d32f2f',
+                desc: '感谢参与Suker蔬菜鲜果活动，欢迎下次再来!'
+            },
+            { 
+                name: '谢谢惠顾', 
+                icon: '🍀', 
+                iconType: 'emoji',
+                type: 'lose', 
+                color: '#c62828',
+                desc: '差一点点就中奖啦! 继续支持我们哦!'
             },
             { 
                 name: '精品大榴莲', 
                 icon: 'images/榴莲.svg', 
                 iconType: 'image',
                 type: 'win', 
-                color: '#f39c12',
-                desc: '恭喜获得泰国进口金枕头榴莲一个，新鲜美味，价值198元!'
+                color: '#FFD700',
+                desc: '恭喜获得泰国进口金枕头榴莲一个！新鲜美味，价值198元！到店即可领取!'
             },
             { 
                 name: '谢谢惠顾', 
-                icon: '😢', 
+                icon: '😊', 
                 iconType: 'emoji',
                 type: 'lose', 
-                color: '#e74c3c',
-                desc: '很遗憾，这次没有中奖。别灰心，下次好运哦!'
+                color: '#d32f2f',
+                desc: '感谢参与Suker蔬菜鲜果活动，欢迎下次再来!'
             },
             { 
                 name: '谢谢惠顾', 
-                icon: '😅', 
+                icon: '🍀', 
                 iconType: 'emoji',
                 type: 'lose', 
-                color: '#c0392b',
-                desc: '差一点点就中奖啦! 继续加油，好运即将降临!'
+                color: '#c62828',
+                desc: '差一点点就中奖啦! 继续支持我们哦!'
             },
             { 
                 name: '谢谢惠顾', 
-                icon: '😢', 
+                icon: '😊', 
                 iconType: 'emoji',
                 type: 'lose', 
-                color: '#e74c3c',
-                desc: '很遗憾，这次没有中奖。别灰心，下次好运哦!'
+                color: '#d32f2f',
+                desc: '感谢参与Suker蔬菜鲜果活动，欢迎下次再来!'
             }
         ];
 
         // 模拟中奖用户数据（全部显示抽中榴莲）
         const mockWinners = [
-            { user: '张***三', prize: '精品大榴莲', time: '3' },
-            { user: '李***四', prize: '精品大榴莲', time: '5' },
-            { user: '王***五', prize: '精品大榴莲', time: '8' },
-            { user: '赵***六', prize: '精品大榴莲', time: '12' },
-            { user: '刘***七', prize: '精品大榴莲', time: '15' },
+            { user: '王***邻居', prize: '精品大榴莲', time: '3' },
+            { user: '李***阿姨', prize: '精品大榴莲', time: '5' },
+            { user: '张***大叔', prize: '精品大榴莲', time: '8' },
+            { user: '刘***小姐', prize: '精品大榴莲', time: '12' },
+            { user: '陈***先生', prize: '精品大榴莲', time: '15' },
             { user: '陈***八', prize: '精品大榴莲', time: '18' },
             { user: '杨***九', prize: '精品大榴莲', time: '20' },
             { user: '黄***十', prize: '精品大榴莲', time: '25' }
@@ -1106,13 +1113,13 @@
             // 禁用按钮，显示抽奖中
             const drawBtn = document.getElementById('drawBtn');
             drawBtn.disabled = true;
-            drawBtn.querySelector('.btn-text').textContent = '抽奖中...';
+            drawBtn.querySelector('.btn-text').textContent = '🎲 好运降临...';
 
             // 更新剩余次数
             document.getElementById('chanceCount').textContent = '0';
 
-            // 100%抽中精品大榴莲（索引2）
-            const winningIndex = 2;
+            // 100%抽中精品大榴莲（索引3）
+            const winningIndex = 3;
             const selectedPrize = prizes[winningIndex];
 
             // 计算目标旋转角度
@@ -1160,11 +1167,11 @@
 
             if (prize.type === 'win') {
                 modalIcon.textContent = '🎉';
-                modalTitle.textContent = '恭喜你中奖啦!';
+                modalTitle.textContent = '恭喜您中奖啦!';
                 createConfetti();
             } else {
-                modalIcon.textContent = '😢';
-                modalTitle.textContent = '很遗憾...';
+                modalIcon.textContent = '😊';
+                modalTitle.textContent = '感谢参与!';
             }
 
             modalOverlay.classList.add('show');
